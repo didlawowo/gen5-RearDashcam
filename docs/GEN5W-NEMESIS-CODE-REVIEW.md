@@ -2,12 +2,25 @@
 
 **Date :** 30 octobre 2026. **Statut :** revue statique, aucune exécution ou installation dans le véhicule.
 
+## Compatibilité du véhicule : confirmée par photo du système (30/10/2026)
+
+**Informations relevées directement sur l'unité multimédia de l'IONIQ 5 EU 2024 :**
+
+- Plateforme : `Standard-class Gen5W Navigation`
+- Modèle : `NEAE.S5BLC.AEU`
+- Version du logiciel : **`NE_E.EUR.S5W_L.001.001.260128`**
+- Date de mise à jour affichée : `06/05/2026`
+
+**Conclusion définitive pour cet exemplaire : NO-GO NEMESIS / gen5-RearDashcam.** Le suffixe `S5W_L` indique le Gen5W Linux ; NEMESIS exige la famille `S5W_M` Android. La preuve vient de l'écran de la voiture (photo transmise par son propriétaire). Ne pas tenter l'installation NEMESIS, le paquet RearDashcam ni de firmware US ; une simple recompilation de l'application ne rend pas compatibles les services, la HAL et les pilotes.
+
+**Direction d'étude :** documenter la pile vidéo du Gen5W Linux européen et les possibilités de capture non intrusive en sortie SVM ; en parallèle, continuer l'étude d'un TAP actif sur les 4 coaxiaux en amont du SVM si 4 vues brutes simultanées sont indispensables. Pas de commande CAN ou changement de firmware en voiture.
+
 ## Synthèse / go-no-go
 
 1. L'upstream est **actif et très récent** (commit du 29/10/2026, [a17861f](https://github.com/KramerTech/gen5-RearDashcam/commit/a17861f37194f22f3ceb97b7859dd9cb77f3d3f4)).
 2. `gen5-RearDashcam` exploite l'API privée **`android.hardware.RearCamera` sur un head unit Android Gen5W** et lit une zone mémoire vidéo réservée. Il **ne lit pas** le coaxial entre les quatre caméras et le calculateur SVM.
 3. Le logiciel actuel fonctionne avec une **caméra arrière analogique standard, HAL type 0**, et **refuse explicitement le type 6 SVM** ; la fonction de diagnostic n'est pas une compatibilité de capture permanente.
-4. **Bloquant potentiel encore plus en amont en Europe :** le projet NEMESIS ne cible que les firmwares `S5W_M` (Gen5W Android), **pas** `S5W_L` (Gen5W Linux), ni ccNC. Hyundai Europe référence le premier IONIQ 5 en `NE_E.EUR.S5W_L`. La version du véhicule cible reste à lire dans ses paramètres.
+4. **Bloquant maintenant **confirmé sur le véhicule cible** :** le projet NEMESIS ne cible que les firmwares `S5W_M` (Gen5W Android), **pas** `S5W_L` (Gen5W Linux), ni ccNC. Hyundai Europe référence le premier IONIQ 5 en `NE_E.EUR.S5W_L`. La photo des paramètres établit `NE_E.EUR.S5W_L.001.001.260128`.
 5. **Décision : aucun essai d'installation** de NEMESIS, du package, ni de désactivation du `preinstall` avant vérification explicite de la version et conception d'un test non destructif.
 
 Sources : [fork utilisateur](https://github.com/didlawowo/gen5-RearDashcam), [README upstream](https://github.com/KramerTech/gen5-RearDashcam/blob/main/README.md), [TECHNICAL upstream](https://github.com/KramerTech/gen5-RearDashcam/blob/main/TECHNICAL.md), [README NEMESIS](https://github.com/xwtk/hmg_nemesis/blob/main/README.md), [tableau Hyundai Europe](https://update.hyundai.com/EU/FR/updateNoticeView/software-version).
@@ -88,7 +101,7 @@ Le document technique de l'auteur indique :
 
 ## Suites recommandées
 
-1. **P0** : confirmer la version précise de l'autoradio de la voiture.
+1. **P0 (FAIT)** : version confirmée `NE_E.EUR.S5W_L.001.001.260128`, NEMESIS incompatible. Ne pas installer.
 2. **P1** : ne pas porter le lanceur NEMESIS ni la HAL Android sans justification; étudier les chemins de capture Linux Hyundai à partir d'une documentation vérifiable, sans flash.
 3. **P1** : identifier le sérialiseur d'une **caméra de rechange** avant d'acheter un désérialiseur/TAP, puis valider un canal **sur banc**.
 4. **P2** : réutiliser les bonnes idées du fork (MPEG-TS segmenté, détection/horodatage des frames, mécanismes de restauration et watchdog) dans un **nouveau backend** Ioniq Control; ne pas présumer qu'il faut exécuter l'APK en voiture.
