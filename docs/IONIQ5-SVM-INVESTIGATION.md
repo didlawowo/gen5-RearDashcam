@@ -2,6 +2,10 @@
 
 > État : exploration technique, **aucune compatibilité SVM démontrée**. Ne pas installer ce fork sur une unité SVM et ne pas retirer les gardes de l'upstream.
 
+## Mise à jour compatibilité (30/10/2026)
+
+Photo des paramètres de l'unité multimédia de ce véhicule : `Standard-class Gen5W Navigation`, modèle `NEAE.S5BLC.AEU`, version `NE_E.EUR.S5W_L.001.001.260128` (mise à jour indiquée `06/05/2026`). Le `S5W_L` confirme **Gen5W Linux européen** : **NEMESIS et l'application Android RearDashcam ne peuvent pas y être installés tels quels**. Préserver le fork pour référence et réutilisation conceptuelle, et investiguer plutôt la pile vidéo Linux ou le TAP coaxial hors véhicule.
+
 ## Contexte et objectif
 
 Véhicule cible : Hyundai IONIQ 5 européenne 2024, HDA2, vision 360° / SVM, 4 caméras (avant, arrière, gauche, droite), rétroviseurs classiques (pas de DSM).
